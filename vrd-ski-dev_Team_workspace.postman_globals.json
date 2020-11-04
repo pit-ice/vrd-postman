@@ -1,0 +1,14 @@
+{
+	"id": "6e857383-9ece-4e53-8641-634b140fb312",
+	"values": [
+		{
+			"key": "token",
+			"value": "{{token}}",
+			"enabled": true
+		}
+	],
+	"name": "vrd-ski-dev Team workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2020-11-04T09:55:55.589Z",
+	"_postman_exported_using": "Postman/7.35.0"
+}
