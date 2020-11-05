@@ -1,0 +1,2699 @@
+{
+	"info": {
+		"_postman_id": "d10233cf-b909-4600-bc6c-75ef41925f47",
+		"name": "SKGC VRD REST API Document",
+		"description": "vrd.ski-dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "papi",
+			"item": [
+				{
+					"name": "auth",
+					"item": [
+						{
+							"name": "이메일 인증",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"key\" : \"email-AYUjxUqGCsHlcdwAhgyv7Ov3o1XF3p1Ng3nB1xp9HXuIcfk9Q0gk7S2AFU2o6d493Qw2Mk5bM1xafBg7Kg==\",\r\n    \"memberId\" : \"test15\"\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-AUTH}}/email",
+									"host": [
+										"{{PAPI-AUTH}}"
+									],
+									"path": [
+										"email"
+									]
+								},
+								"description": "회원 가입시 이메일 인증\r\n이메일 키 유효 시간은 발급 후 24시간입니다.\r\n이메일 키는 한번 사용되거나 재발급 후 사용이 불가능합니다."
+							},
+							"response": []
+						},
+						{
+							"name": "로그인",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "aea91521-ceb5-41d4-991b-2b5f59701a69",
+										"exec": [
+											"var data = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(\"token\", data.token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"mbrId\" : \"test18\" ,\r\n   \"mbrPwd\" : \"1q2w3e4r%T\"\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-AUTH}}/login",
+									"host": [
+										"{{PAPI-AUTH}}"
+									],
+									"path": [
+										"login"
+									]
+								},
+								"description": "public 포탈 로그인"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "member",
+					"item": [
+						{
+							"name": "약관 조회",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/terms/:checkType",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"terms",
+										":checkType"
+									],
+									"variable": [
+										{
+											"id": "95d42d46-8eba-4394-9b30-39385c01fce2",
+											"key": "checkType",
+											"value": "1",
+											"type": "string",
+											"description": "개인, 기업 구분 코"
+										}
+									]
+								},
+								"description": "checkType 필수  "
+							},
+							"response": [
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "중복 조회",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/duplicate/:checkType/:id",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"duplicate",
+										":checkType",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "d1ea2d11-8034-4f5b-9520-47ada8808171",
+											"key": "checkType",
+											"value": "id",
+											"type": "string",
+											"description": "중복조회 대상 (id, email)"
+										},
+										{
+											"id": "b6537b5d-7060-4255-b671-9d27d85a9260",
+											"key": "id",
+											"value": "test",
+											"type": "string",
+											"description": "검색"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "로그인 회원 정보 조회",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										""
+									]
+								},
+								"description": "id는 backend에서 token으로 식별"
+							},
+							"response": [
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "회원 임시 등록 x",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "emailAddr",
+											"value": "test19@yopmail.com",
+											"type": "text"
+										},
+										{
+											"key": "mbrId",
+											"value": "test19",
+											"type": "text"
+										},
+										{
+											"key": "mbrNm",
+											"value": "테스트19",
+											"type": "text"
+										},
+										{
+											"key": "mbrPwd",
+											"value": "1q2w3e4r%T",
+											"type": "text"
+										},
+										{
+											"key": "member_class_code",
+											"value": " 1",
+											"type": "text"
+										},
+										{
+											"key": "pwdFailCnt",
+											"value": " 0",
+											"type": "text"
+										},
+										{
+											"key": "r",
+											"value": " 03AGdBq24FWBKvmGIGcXZmQFJgKYbRvQhtc6dEkatfAjj77b5gGmiwXrZglTd96caO_kXGh9VSzcpBqiGPdpVGUqZGpi7wIvh455GlChxkoWEaXPGQM9IL0Kpy6Vw9tC-25dFFmbRplkh8Zs-VQ4EIJxU7XtOtY4W13qjV63gkHK0GUlrogjywZ-rmDXnAmCQFgH2J4aQfeahDrSZCUhJEj4YSUzpN4c_B783AUnadi1X46foE60CvsiUsMRHEwTqQgKVSNuAsZRX1tEda8B4VzX_5k0msiuWvOYGSVRtrmFeKHYHf2A4tpshKjOK-NxlIuYiWw9YVWpR0oQJu9ncMtMNCSN04p6_lh61_XP53RdRppNMxzjIknZOeuaRp6d3hIPCSca-TaITNPByYBeZSoy9lvEEgUr9et-8duKaT1q916yDceu5jOtsU6p-2osSZj2mI9Dq02h18",
+											"type": "text"
+										},
+										{
+											"key": "regprId",
+											"value": "test19",
+											"type": "text"
+										},
+										{
+											"key": "terms",
+											"value": " [6, 2, 3]",
+											"type": "text"
+										},
+										{
+											"key": "useYn",
+											"value": " true",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/users",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"users"
+									]
+								},
+								"description": "emailAddr  이메일\r\nmbrId 아이디\r\nmbrNm 이름\r\nmbrPwd 패스워드\r\nmember_class_code 개인, 기업\r\npwdFailCnt 비밀번호 실패회수\r\nr  recaptcha 응답코드\r\nregprId 등록자\r\nterms 동의한 약관 번호\r\nuseYn 사용여부"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "로그인 회원 비밀번호 수정",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "cd1036f5-e2b1-407c-a551-a3275521bfa0",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mbrId\" : \"test18\",\r\n    \"mbrPwd\" : \"1q2w3e4r%T\",\r\n    \"newMbrPwd\" : \"1q2w3e4r%T\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										},
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/password",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"password"
+									]
+								},
+								"description": "로그인 상태에서의 비밀번호 변경 (마이페이지)\r\n토큰 오류가 날시 auth -> 로그인 api를 한번 실행시켜 주세요."
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "로그인 회원정보(이메일) 수정",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2d755280-e774-4ab3-866d-391bf838bdb8",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : \"test18\",\r\n    \"emailAddress\" : \"test18@yopmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										},
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									]
+								},
+								"description": "로그인 상태에서의 회원 이메일  수정"
+							},
+							"response": [
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "로그인 회원 비밀번호 유지기간 연장",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "0d532d1d-739b-40f1-a9a1-303f1d095d22",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "token",
+										"value": "{{token}}"
+									}
+								],
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/password-period",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"password-period"
+									]
+								},
+								"description": "비밀번호 변경 90일 이상 지난 회원이 로그인시 비밀번호 변경창이 뜨는데 다음에 변경을 눌렀을 떄\r\n비밀번호 변경 알림을 30일 뒤로 미룬다."
+							},
+							"response": [
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/account/users",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"account",
+												"users"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "비로그인 본인확인",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"memberId\" : \"test18\" ,\r\n   \"memberName\" : \"테스트18\",\r\n   \"emailAddress\" : \"test18@yopmail.com\"\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/me",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"me"
+									]
+								},
+								"description": "비로그인 상태에서 비밀 번호 초기화를 위한 본인확인(이메일발송)"
+							},
+							"response": []
+						},
+						{
+							"name": "비로그인 비밀번호 변경",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"memberId\" : \"test18\",\r\n    \"memberPassword\" : \"1q2w3e4r%T\",\r\n    \"key\" : \"${emailKey}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/password/reset",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"password",
+										"reset"
+									]
+								},
+								"description": "비로그인 상태에서 비밀번호 변경(비밀번호 분실 재설정)"
+							},
+							"response": []
+						},
+						{
+							"name": "비로그인 아이디 찾기",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"memberName\" : \"테스트18\",\r\n\"emailAddress\" : \"test18@yopmail.com\"\r\n\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/id",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"id"
+									]
+								},
+								"description": "회원 아이디 찾기(비로그인)"
+							},
+							"response": []
+						},
+						{
+							"name": "이메일 인증 시간 연장",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"memberId\" : \"test14\"\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/auth-period",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"auth-period"
+									]
+								},
+								"description": "이메일 인증 24 시간 연장"
+							},
+							"response": []
+						},
+						{
+							"name": "로그인 본인  확인 x",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"r\" : \"\",\r\n    \"ip\" : \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-MEMBER}}/password",
+									"host": [
+										"{{PAPI-MEMBER}}"
+									],
+									"path": [
+										"password"
+									]
+								},
+								"description": "마이페이지 입장을 위한 본인  확인"
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "product",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "vrdlab",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "techsupport",
+					"item": [
+						{
+							"name": "FAQ목록 조회",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs?checkType=3&keyword=sad&faqClassCode=1",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs"
+									],
+									"query": [
+										{
+											"key": "checkType",
+											"value": "3",
+											"description": "FAQ : 3"
+										},
+										{
+											"key": "keyword",
+											"value": "sad",
+											"description": "title"
+										},
+										{
+											"key": "faqClassCode",
+											"value": "1",
+											"description": "분"
+										}
+									]
+								},
+								"description": "checkType은 필수\r\nkeyword, faqClassCode 검색 기능"
+							},
+							"response": [
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "FAQ상세",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": "1"
+										}
+									]
+								},
+								"description": "bbsNumber은 FAQ 번호"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "FAQ 추가",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "bbs_class_code",
+											"value": "3",
+											"type": "text"
+										},
+										{
+											"key": "title",
+											"value": "postman123",
+											"type": "text"
+										},
+										{
+											"key": "contents",
+											"value": "postman test입니다.12313213",
+											"type": "text"
+										},
+										{
+											"key": "register_person_id",
+											"value": "system",
+											"type": "text"
+										},
+										{
+											"key": "faq_class_code",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "is_faq_view",
+											"value": "1",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs"
+									]
+								},
+								"description": "bbs_class_code:3 FAQ\r\ntitle:postman123   제목\r\ncontents:postman test입니다.12313213    내용\r\nregister_person_id:system    등록자\r\nfaq_class_code:1     분류\r\nis_faq_view:1    노출여부"
+							},
+							"response": [
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "FAQ 수정",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "title",
+											"value": "sadasdasd",
+											"type": "text"
+										},
+										{
+											"key": "contents",
+											"value": "asdwqe13sdfxccasdasdasd가난다라마바",
+											"type": "text"
+										},
+										{
+											"key": "faq_class_code",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "is_faq_view",
+											"value": "0",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": ""
+										}
+									]
+								},
+								"description": "title:sadasdasd        제목\r\ncontents:asdwqe13sdfxccasdasdasd가난다라마바    내용\r\nfaq_class_code:2          분류\r\nis_faq_view:0             노출여부\r\nregister_person_id:system   수정자"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "FAQ 삭제",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": ""
+										}
+									]
+								},
+								"description": "bbsNumber  FAQ 번호\r\n\r\n논리적 삭제"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "문의 목록 조회",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs?checkType=4&keyword=sad&gubun=title",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs"
+									],
+									"query": [
+										{
+											"key": "checkType",
+											"value": "4",
+											"description": "문의하기 번"
+										},
+										{
+											"key": "keyword",
+											"value": "sad",
+											"description": "검색어"
+										},
+										{
+											"key": "gubun",
+											"value": "title",
+											"description": "검색 필"
+										}
+									]
+								},
+								"description": "checkType 필수\r\nkeyword, gubun 검색 기능"
+							},
+							"response": [
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "문의 상세",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": "1"
+										}
+									]
+								},
+								"description": "bbsNumber 문의 번호"
+							},
+							"response": [
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "문의 삭제",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": "1"
+										}
+									]
+								},
+								"description": "bbsNumber 문의 번호\r\n\r\n논리적 삭제"
+							},
+							"response": [
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "문의 답변 등록",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "contents",
+											"value": "답변을 해드립니다.아아아아아",
+											"type": "text"
+										},
+										{
+											"key": "register_person_id",
+											"value": "system",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber/reply",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber",
+										"reply"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": ""
+										}
+									]
+								},
+								"description": "bbsNumber 문의 번호\r\ncontents 내용\r\nregister_person_id 답변자"
+							},
+							"response": [
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						},
+						{
+							"name": "문의 답변 수정",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "contents",
+											"value": "답변 수정을 해드립니다.아아아아아",
+											"type": "text"
+										},
+										{
+											"key": "register_person_id",
+											"value": "system123",
+											"type": "text"
+										}
+									],
+									"options": {
+										"urlencoded": {}
+									}
+								},
+								"url": {
+									"raw": "{{PAPI-TECHSUPPORT}}/bbs/:bbsNumber/reply",
+									"host": [
+										"{{PAPI-TECHSUPPORT}}"
+									],
+									"path": [
+										"bbs",
+										":bbsNumber",
+										"reply"
+									],
+									"variable": [
+										{
+											"key": "bbsNumber",
+											"value": "1"
+										}
+									]
+								},
+								"description": "bbsNumber 문의 번호\r\n\r\ncontents 답변\r\nregister_person_id 수정자"
+							},
+							"response": [
+								{
+									"name": "Not Found ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Not Found",
+									"code": 404,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "OK",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "*/*"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								},
+								{
+									"name": "Internal Server Error ~~",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{baseUrl}}/api/techsupport/bbs",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"techsupport",
+												"bbs"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "text",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/plain"
+										}
+									],
+									"cookie": [],
+									"body": ""
+								}
+							]
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "notification",
+					"item": [
+						{
+							"name": "이메일 전송",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "aea91521-ceb5-41d4-991b-2b5f59701a69",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "content-type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"to\" : \"kanghanon@bluedigm.com\" ,\r\n   \"from\" : \"kanghanon@bluedigm.com\",\r\n   \"subject\" : \"SK 종합화학 회원가입 이메일 인증 안내\",\r\n   \"emailValue\" : { \"emailAuthenticationKeyValue\" : \"asdasdqwedsdasdkekyasejql\", \"memberId\" : \"test1234\"},\r\n   \"templateId\" : \"memberResetPassword\"\r\n}"
+								},
+								"url": {
+									"raw": "{{PAPI-NOTIFICATION}}/email",
+									"host": [
+										"{{PAPI-NOTIFICATION}}"
+									],
+									"path": [
+										"email"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "file",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"description": "baseUrl  : **http://20.196.72.1:8080**",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "iapi",
+			"item": [
+				{
+					"name": "admin",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "rest-ML",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "ML",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "simulator",
+					"item": [],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "bf221561-a694-468f-99fc-90d43fd28e2c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "1100a6d9-c790-40c4-8e41-045fcf944e42",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
